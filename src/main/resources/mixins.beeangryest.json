@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "juuxel.bee.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+    "BeeEntityMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
