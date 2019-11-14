@@ -31,16 +31,19 @@ public class BeeItem extends Item {
 
     private void place(World world, BlockPos pos, PlayerEntity user, ItemStack stack) {
         CompoundTag beeData = stack.getSubTag("Bee");
-        if (beeData == null) {
-            LOGGER.warn("Missing bee data on bee stack (nbt: {})", stack.getTag());
-        } else if (world instanceof ServerWorld) {
+        if (world instanceof ServerWorld) {
             ServerWorld w = (ServerWorld) world;
-            beeData.remove("Passengers");
-            beeData.remove("Leash");
-            beeData.removeUuid("UUID");
-            Entity bee = EntityType.loadEntityWithPassengers(beeData, w, e -> e);
+            Entity bee;
+            if (beeData == null) {
+                bee = EntityType.BEE.create(w);
+            } else {
+                beeData.remove("Passengers");
+                beeData.remove("Leash");
+                beeData.removeUuid("UUID");
+                bee = EntityType.loadEntityWithPassengers(beeData, w, e -> e);
+            }
             if (bee == null) {
-                throw new NullPointerException("Failed to load a bee!");
+                throw new NullPointerException("Failed to load or create a bee!");
             }
             bee.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
             world.spawnEntity(bee);
