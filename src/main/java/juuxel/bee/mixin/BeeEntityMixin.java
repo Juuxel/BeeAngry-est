@@ -25,12 +25,12 @@ public abstract class BeeEntityMixin extends AnimalEntity {
     @Inject(method = "tryAttack", at = @At("RETURN"))
     private void onTryAttack(Entity entity, CallbackInfoReturnable<Boolean> info) {
         if (info.getReturnValueZ()) {
-            world.createExplosion(this, x, y, z, BEE_EXPLOSION_STRENGTH, Explosion.DestructionType.NONE);
+            world.createExplosion(this, getX(), getY(), getZ(), BEE_EXPLOSION_STRENGTH, Explosion.DestructionType.NONE);
         }
     }
 
     @Inject(method = "mobTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", ordinal = 0))
     private void onMobTick(CallbackInfo info) {
-        world.createExplosion(this, x, y, z, BEE_EXPLOSION_STRENGTH, Explosion.DestructionType.DESTROY);
+        world.createExplosion(this, getX(), getY(), getZ(), BEE_EXPLOSION_STRENGTH, Explosion.DestructionType.DESTROY);
     }
 }
