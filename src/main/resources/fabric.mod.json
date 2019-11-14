@@ -18,6 +18,9 @@
   "icon": "assets/beeangry-est/icon.png",
 
   "environment": "*",
+  "entrypoints": {
+    "main": ["juuxel.bee.BeeAngryest"]
+  },
   "mixins": [
     "mixins.beeangryest.json"
   ],
