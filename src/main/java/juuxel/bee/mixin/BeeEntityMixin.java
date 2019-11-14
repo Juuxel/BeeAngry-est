@@ -29,7 +29,7 @@ public abstract class BeeEntityMixin extends AnimalEntity {
         }
     }
 
-    @Inject(method = "mobTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", ordinal = 0))
+    @Inject(method = "mobTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", ordinal = 1))
     private void onMobTick(CallbackInfo info) {
         world.createExplosion(this, getX(), getY(), getZ(), BEE_EXPLOSION_STRENGTH, Explosion.DestructionType.DESTROY);
     }
