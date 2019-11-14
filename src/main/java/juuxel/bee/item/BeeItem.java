@@ -51,4 +51,9 @@ public class BeeItem extends Item {
             stack.decrement(1);
         }
     }
+
+    @Override
+    public String getTranslationKey() {
+        return EntityType.BEE.getTranslationKey();
+    }
 }

@@ -8,7 +8,7 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
-public class BeeAngryest implements ModInitializer {
+public final class BeeAngryest implements ModInitializer {
     public static final Item BEE = new BeeItem(new Item.Settings());
     public static final Item SCOOP = new ScoopItem(new Item.Settings().group(ItemGroup.TOOLS));
 

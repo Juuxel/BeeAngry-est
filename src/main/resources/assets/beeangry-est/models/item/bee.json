@@ -1,0 +1,36 @@
+{
+  "parent": "block/block",
+  "textures": {
+    "bee": "minecraft:entity/bee/bee"
+  },
+  "elements": [
+    {
+      "from": [3, 5, 5],
+      "to": [13, 12, 12],
+      "faces": {
+        "east": { "uv": [2.5, 2.5, 4.25, 4.25], "texture": "#bee" },
+        "west": { "uv": [6.75, 2.5, 8.5, 4.25], "texture": "#bee" },
+        "north": { "uv": [2.5, 2.5, 0, 4.25], "texture": "#bee" },
+        "south": { "uv": [6.75, 2.5, 4.25, 4.25], "texture": "#bee" },
+        "up": { "uv": [2.5, 2.5, 4.25, 0], "rotation": 90, "texture": "#bee" },
+        "down": { "uv": [6, 2.5, 4.25, 0], "rotation": 90, "texture": "#bee" }
+      }
+    },
+    {
+      "from": [13, 10, 7],
+      "to": [16, 12, 7],
+      "faces": {
+        "north": { "uv": [1.5, 1.5, 2.25, 2], "texture": "#bee" },
+        "south": { "uv": [0.5, 0.75, 1.25, 1.25], "texture": "#bee" }
+      }
+    },
+    {
+      "from": [13, 10, 10],
+      "to": [16, 12, 10],
+      "faces": {
+        "north": { "uv": [1.5, 1.5, 2.25, 2], "texture": "#bee" },
+        "south": { "uv": [0.5, 0.75, 1.25, 1.25], "texture": "#bee" }
+      }
+    }
+  ]
+}
