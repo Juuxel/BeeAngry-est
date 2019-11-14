@@ -13,12 +13,8 @@ import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class BeeItem extends Item {
-    private static final Logger LOGGER = LogManager.getLogger();
-
     public BeeItem(Settings settings) {
         super(settings);
     }

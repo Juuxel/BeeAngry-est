@@ -3,7 +3,9 @@
   "package": "juuxel.bee.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "BeeEntityMixin"
+    "BeeEntityMixin",
+    "BooleanRuleAccessor",
+    "GameRulesAccessor"
   ],
   "client": [
   ],
