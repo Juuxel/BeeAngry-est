@@ -6,7 +6,9 @@ import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.Util;
 
 public class ScoopItem extends Item {
@@ -20,8 +22,10 @@ public class ScoopItem extends Item {
             ItemStack bee = new ItemStack(BeeAngryest.BEE);
             entity.removeAllPassengers();
             Util.create(bee.getOrCreateSubTag("Bee"), entity::saveToTag);
-            user.inventory.offerOrDrop(user.getEntityWorld(), bee);
+            ItemScatterer.spawn(entity.world, entity.getX(), entity.getY(), entity.getZ(), bee);
             entity.remove();
+            stack.damage(1, user, player -> player.sendToolBreakStatus(hand));
+            user.incrementStat(Stats.USED.getOrCreateStat(this));
 
             return true;
         }
