@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface GameRulesAccessor {
     @SuppressWarnings("PublicStaticMixinMember")
     @Invoker
-    static <T extends GameRules.Rule<T>> GameRules.RuleKey<T> register(String name, GameRules.RuleType<T> type) {
+    static <T extends GameRules.Rule<T>> GameRules.RuleKey<T> callRegister(String name, GameRules.RuleType<T> type) {
         throw new AssertionError("@Invoker dummy body called");
     }
 }

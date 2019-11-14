@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 public interface BooleanRuleAccessor {
     @SuppressWarnings("PublicStaticMixinMember")
     @Invoker
-    static GameRules.RuleType<GameRules.BooleanRule> of(boolean value) {
+    static GameRules.RuleType<GameRules.BooleanRule> callOf(boolean value) {
         throw new AssertionError("@Invoker dummy body called");
     }
 }

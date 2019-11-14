@@ -1,6 +1,7 @@
 package juuxel.bee.item;
 
 import juuxel.bee.BeeAngryest;
+import juuxel.bee.BeeGameRules;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,10 +24,10 @@ public class ScoopItem extends Item {
         if (entity instanceof BeeEntity && !world.isClient) {
             ItemStack bee = new ItemStack(BeeAngryest.BEE);
             entity.removeAllPassengers();
-            if (world.getGameRules().getBoolean(BeeAngryest.SAVE_SCOOPED_BEE_NBT)) {
+            if (world.getGameRules().getBoolean(BeeGameRules.SAVE_SCOOPED_BEE_NBT)) {
                 Util.create(bee.getOrCreateSubTag("Bee"), entity::saveToTag);
             }
-            if (world.getGameRules().getBoolean(BeeAngryest.ALWAYS_DROP_SCOOPED_BEES)) {
+            if (world.getGameRules().getBoolean(BeeGameRules.ALWAYS_DROP_SCOOPED_BEES)) {
                 ItemScatterer.spawn(world, entity.getX(), entity.getY(), entity.getZ(), bee);
             } else {
                 user.inventory.offerOrDrop(world, bee);
