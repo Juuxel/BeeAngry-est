@@ -5,6 +5,8 @@
   "mixins": [
     "BeeEntityMixin",
     "BooleanRuleAccessor",
+    "CriterionsAccessor",
+    "CriterionsMixin",
     "GameRulesAccessor",
     "GameRulesMixin"
   ],

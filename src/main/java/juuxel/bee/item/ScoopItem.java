@@ -2,11 +2,13 @@ package juuxel.bee.item;
 
 import juuxel.bee.BeeAngryest;
 import juuxel.bee.BeeGameRules;
+import juuxel.bee.criterion.BeeCriteria;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
@@ -32,9 +34,12 @@ public class ScoopItem extends Item {
             } else {
                 user.inventory.offerOrDrop(world, bee);
             }
-            entity.remove();
             stack.damage(1, user, player -> player.sendToolBreakStatus(hand));
             user.incrementStat(Stats.USED.getOrCreateStat(this));
+            if (user instanceof ServerPlayerEntity) {
+                BeeCriteria.BEE_SCOOPED.trigger((ServerPlayerEntity) user, stack, entity);
+            }
+            entity.remove();
 
             return true;
         }

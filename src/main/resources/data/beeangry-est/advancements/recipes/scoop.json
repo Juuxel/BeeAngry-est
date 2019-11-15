@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_wool": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{ "tag": "minecraft:wool" }]
+      }
+    },
+    "has_string": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [{ "item": "minecraft:string" }]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "beeangry-est:scoop"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wool",
+      "has_string",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "beeangry-est:scoop"
+    ]
+  }
+}
