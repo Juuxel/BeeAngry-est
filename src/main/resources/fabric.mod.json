@@ -27,7 +27,8 @@
 
   "depends": {
     "fabricloader": ">=0.4.0",
-    "minecraft": ">=1.15-"
+    "minecraft": ">=1.15-",
+    "fabric": "*"
   },
   "suggests": {
     "lil-tater": "*"
