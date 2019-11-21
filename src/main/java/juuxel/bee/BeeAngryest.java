@@ -9,11 +9,13 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
 public final class BeeAngryest implements ModInitializer {
+    public static final String ID = "beeangry-est";
+
     public static final Item BEE = new BeeItem(new Item.Settings().group(ItemGroup.MISC)/*.maxCount(1)*/);
     public static final Item SCOOP = new ScoopItem(new Item.Settings().group(ItemGroup.TOOLS).maxDamage(100));
 
     public static Identifier id(String path) {
-        return new Identifier("beeangry-est", path);
+        return new Identifier(ID, path);
     }
 
     @Override
