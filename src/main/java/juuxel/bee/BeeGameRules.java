@@ -16,6 +16,6 @@ public final class BeeGameRules {
     }
 
     private static GameRules.RuleKey<GameRules.BooleanRule> register(String name, boolean defaultValue) {
-        return GameRulesAccessor.callRegister(BeeAngryest.ID + ":" + name, BooleanRuleAccessor.callOf(defaultValue));
+        return GameRulesAccessor.callRegister(BeeAngryest.ID + ":" + name, BooleanRuleAccessor.callCreate(defaultValue));
     }
 }

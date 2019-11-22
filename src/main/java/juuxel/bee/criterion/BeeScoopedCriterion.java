@@ -28,7 +28,7 @@ public class BeeScoopedCriterion extends AbstractCriterion<BeeScoopedCriterion.C
     }
 
     public void trigger(ServerPlayerEntity player, ItemStack stack, Entity entity) {
-        test(player.getAdvancementManager(), conditions -> conditions.matches(player, stack, entity));
+        test(player.getAdvancementTracker(), conditions -> conditions.matches(player, stack, entity));
     }
 
     public static class Conditions extends AbstractCriterionConditions {

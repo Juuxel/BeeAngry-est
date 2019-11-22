@@ -44,7 +44,7 @@ public abstract class BeeEntityMixin extends AnimalEntity {
     @Mixin(targets = "net.minecraft.entity.passive.BeeEntity$PollinateGoal")
     static class PollinateGoalMixin {
         @SuppressWarnings("InvalidMemberReference")
-        @Redirect(method = {"canBeeStart", "canBeeContinue"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isRaining()Z", ordinal = 0))
+        @Redirect(method = {"canBeeStart()Z", "canBeeContinue()Z"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isRaining()Z", ordinal = 0))
         private boolean redirectIsRaining(World world) {
             return world.isRaining() && world.getGameRules().getBoolean(BeeGameRules.BEES_SEEK_RAIN_SHELTER);
         }
