@@ -1,7 +1,7 @@
 package juuxel.bee.mixin.beebetter;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BeeHiveBlockEntity;
+import net.minecraft.block.entity.BeehiveBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import javax.annotation.Nullable;
 import java.util.List;
 
-@Mixin(targets = "com.github.draylar.betterbees.entity.ModdedBeehiveBlockEntity")
+@Mixin(targets = "com.github.draylar.beebetter.entity.ModdedBeehiveBlockEntity")
 public class ModdedBeehiveBlockEntityMixin extends BlockEntity {
     public ModdedBeehiveBlockEntityMixin(BlockEntityType<?> type) {
         super(type);
@@ -22,7 +22,7 @@ public class ModdedBeehiveBlockEntityMixin extends BlockEntity {
 
     @SuppressWarnings("UnresolvedMixinReference")
     @Redirect(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isNight()Z"))
-    private boolean onReleaseBee_redirectIsNight(World world, BlockState state, CompoundTag tag, @Nullable List<Entity> entities, BeeHiveBlockEntity.BeeState beeState) {
+    private boolean onReleaseBee_redirectIsNight(World world, BlockState state, CompoundTag tag, @Nullable List<Entity> entities, BeehiveBlockEntity.BeeState beeState) {
         return tag.getBoolean("Nocturnal") ? world.isDay() : world.isNight();
     }
 }
