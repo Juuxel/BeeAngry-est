@@ -3,6 +3,7 @@ package juuxel.bee.mixin;
 import juuxel.bee.BeeGameRules;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.nbt.CompoundTag;
@@ -30,7 +31,7 @@ public abstract class BeeEntityMixin extends AnimalEntity {
 
     @Inject(method = "tryAttack", at = @At("RETURN"))
     private void onTryAttack(Entity entity, CallbackInfoReturnable<Boolean> info) {
-        if (info.getReturnValueZ()) {
+        if (info.getReturnValueZ() && entity instanceof LivingEntity) {
             world.createExplosion(this, getX(), getY(), getZ(), BEE_EXPLOSION_STRENGTH, Explosion.DestructionType.NONE);
         }
     }
