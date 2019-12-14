@@ -41,6 +41,9 @@ public class BeeItem extends Item {
             if (bee == null) {
                 throw new NullPointerException("Failed to load or create a bee!");
             }
+            if (stack.hasCustomName()) {
+                bee.setCustomName(stack.getName());
+            }
             bee.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
             world.spawnEntity(bee);
         }

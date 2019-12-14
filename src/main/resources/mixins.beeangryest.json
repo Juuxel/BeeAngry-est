@@ -5,11 +5,13 @@
   "mixins": [
     "BeeEntityMixin",
     "BeeEntityMixin$PollinateGoalMixin",
+    "BeeHiveBlockEntityMixin",
     "BooleanRuleAccessor",
     "CriterionsAccessor",
     "CriterionsMixin",
     "GameRulesAccessor",
-    "GameRulesMixin"
+    "GameRulesMixin",
+    "beebetter.ModdedBeehiveBlockEntityMixin"
   ],
   "client": [
   ],

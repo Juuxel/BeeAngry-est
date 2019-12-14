@@ -48,7 +48,7 @@ public class BeeScoopedCriterion extends AbstractCriterion<BeeScoopedCriterion.C
         // I think this is used for data generation? So technically useless
         @Override
         public JsonElement toJson() {
-            return Util.create(new JsonObject(), json -> {
+            return Util.make(new JsonObject(), json -> {
                 json.add("item", item.toJson());
                 json.add("bee", bee.serialize());
             });

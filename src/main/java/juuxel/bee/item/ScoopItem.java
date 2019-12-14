@@ -27,7 +27,10 @@ public class ScoopItem extends Item {
             ItemStack bee = new ItemStack(BeeAngryest.BEE);
             entity.removeAllPassengers();
             if (world.getGameRules().getBoolean(BeeGameRules.SAVE_SCOOPED_BEE_NBT)) {
-                Util.create(bee.getOrCreateSubTag("Bee"), entity::saveToTag);
+                Util.make(bee.getOrCreateSubTag("Bee"), entity::saveToTag);
+            }
+            if (entity.hasCustomName()) {
+                bee.setCustomName(entity.getCustomName());
             }
             if (world.getGameRules().getBoolean(BeeGameRules.ALWAYS_DROP_SCOOPED_BEES)) {
                 ItemScatterer.spawn(world, entity.getX(), entity.getY(), entity.getZ(), bee);
