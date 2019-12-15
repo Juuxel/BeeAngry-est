@@ -8,11 +8,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 public class BeeItem extends Item {
     public BeeItem(Settings settings) {
@@ -25,7 +28,7 @@ public class BeeItem extends Item {
         return ActionResult.SUCCESS;
     }
 
-    private void place(World world, BlockPos pos, PlayerEntity user, ItemStack stack) {
+    public static void place(World world, BlockPos pos, @Nullable PlayerEntity user, ItemStack stack) {
         CompoundTag beeData = stack.getSubTag("Bee");
         if (world instanceof ServerWorld) {
             ServerWorld w = (ServerWorld) world;
@@ -47,9 +50,14 @@ public class BeeItem extends Item {
             bee.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
             world.spawnEntity(bee);
         }
-        user.incrementStat(Stats.USED.getOrCreateStat(this));
-        user.playSound(SoundEvents.BLOCK_BEEHIVE_EXIT, 1f, 1f);
-        if (!user.abilities.creativeMode) {
+        if (user != null) {
+            user.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
+            user.playSound(SoundEvents.BLOCK_BEEHIVE_EXIT, 1f, 1f);
+        } else {
+            world.playSound(null, pos, SoundEvents.BLOCK_BEEHIVE_EXIT, SoundCategory.BLOCKS, 1f, 1f);
+        }
+
+        if (user == null || !user.abilities.creativeMode) {
             stack.decrement(1);
         }
     }

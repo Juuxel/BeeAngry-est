@@ -15,6 +15,8 @@ import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.Util;
 import net.minecraft.world.World;
 
+import javax.annotation.Nullable;
+
 public class ScoopItem extends Item {
     public ScoopItem(Settings settings) {
         super(settings);
@@ -23,7 +25,15 @@ public class ScoopItem extends Item {
     @Override
     public boolean useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
         World world = user.world;
-        if (entity instanceof BeeEntity && !world.isClient) {
+        if (entity instanceof BeeEntity) {
+            scoopBee(world, user, hand, (BeeEntity) entity, stack);
+            return true;
+        }
+        return super.useOnEntity(stack, user, entity, hand);
+    }
+
+    public static void scoopBee(World world, @Nullable PlayerEntity user, @Nullable Hand hand, BeeEntity entity, ItemStack stack) {
+        if (!entity.world.isClient) {
             ItemStack bee = new ItemStack(BeeAngryest.BEE);
             entity.removeAllPassengers();
             if (world.getGameRules().getBoolean(BeeGameRules.SAVE_SCOOPED_BEE_NBT)) {
@@ -32,20 +42,21 @@ public class ScoopItem extends Item {
             if (entity.hasCustomName()) {
                 bee.setCustomName(entity.getCustomName());
             }
-            if (world.getGameRules().getBoolean(BeeGameRules.ALWAYS_DROP_SCOOPED_BEES)) {
+            if (world.getGameRules().getBoolean(BeeGameRules.ALWAYS_DROP_SCOOPED_BEES) || user == null) {
                 ItemScatterer.spawn(world, entity.getX(), entity.getY(), entity.getZ(), bee);
             } else {
                 user.inventory.offerOrDrop(world, bee);
             }
-            stack.damage(1, user, player -> player.sendToolBreakStatus(hand));
-            user.incrementStat(Stats.USED.getOrCreateStat(this));
-            if (user instanceof ServerPlayerEntity) {
-                BeeCriteria.BEE_SCOOPED.trigger((ServerPlayerEntity) user, stack, entity);
+            if (user != null) {
+                stack.damage(1, user, player -> player.sendToolBreakStatus(hand));
+                user.incrementStat(Stats.USED.getOrCreateStat(stack.getItem()));
+                if (user instanceof ServerPlayerEntity) {
+                    BeeCriteria.BEE_SCOOPED.trigger((ServerPlayerEntity) user, stack, entity);
+                }
+            } else {
+                stack.damage(1, world.random, null);
             }
             entity.remove();
-
-            return true;
         }
-        return super.useOnEntity(stack, user, entity, hand);
     }
 }
