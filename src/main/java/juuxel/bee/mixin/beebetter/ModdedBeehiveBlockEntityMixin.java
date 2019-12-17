@@ -1,8 +1,8 @@
 package juuxel.bee.mixin.beebetter;
 
 import com.github.draylar.beebetter.entity.ModdedBeehiveBlockEntity;
+import com.github.draylar.beebetter.util.BeeState;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BeehiveBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.Entity;
@@ -22,7 +22,7 @@ public class ModdedBeehiveBlockEntityMixin extends BlockEntity {
     }
 
     @Redirect(method = "releaseBee", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isNight()Z"))
-    private boolean onReleaseBee_redirectIsNight(World world, BlockState state, CompoundTag tag, @Nullable List<Entity> entities, BeehiveBlockEntity.BeeState beeState) {
+    private boolean onReleaseBee_redirectIsNight(World world, BlockState state, CompoundTag tag, @Nullable List<Entity> entities, BeeState beeState) {
         return tag.getBoolean("Nocturnal") ? world.isDay() : world.isNight();
     }
 }
