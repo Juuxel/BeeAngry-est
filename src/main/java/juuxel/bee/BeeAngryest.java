@@ -1,8 +1,11 @@
 package juuxel.bee;
 
+import io.github.cottonmc.beecompatible.api.BeeTimeCheckCallback;
+import io.github.cottonmc.beecompatible.api.BeeWeatherCheckCallback;
 import juuxel.bee.item.BeeItem;
 import juuxel.bee.item.ScoopItem;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.util.TriState;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.dispenser.FallibleItemDispenserBehavior;
 import net.minecraft.entity.passive.BeeEntity;
@@ -50,6 +53,16 @@ public final class BeeAngryest implements ModInitializer {
                 }
                 return stack;
             }
+        });
+
+        BeeWeatherCheckCallback.EVENT.register((world, bee) -> {
+            boolean rainShelter = world.getGameRules().getBoolean(BeeGameRules.BEES_SEEK_RAIN_SHELTER);
+            return TriState.of(!rainShelter || !world.isRaining());
+        });
+
+        BeeTimeCheckCallback.EVENT.register((world, bee) -> {
+            boolean nocturnal = ExtendedBee.of(bee).beeAngryest_isNocturnal();
+            return nocturnal ? TriState.of(world.isNight()) : TriState.DEFAULT;
         });
     }
 }

@@ -1,6 +1,7 @@
 package juuxel.bee.mixin;
 
 import juuxel.bee.BeeGameRules;
+import juuxel.bee.ExtendedBee;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -18,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BeeEntity.class)
-public abstract class BeeEntityMixin extends AnimalEntity {
+public abstract class BeeEntityMixin extends AnimalEntity implements ExtendedBee {
     @Unique
     private static final float BEE_EXPLOSION_STRENGTH = 2.3f;
 
@@ -27,6 +28,11 @@ public abstract class BeeEntityMixin extends AnimalEntity {
 
     protected BeeEntityMixin(EntityType<? extends AnimalEntity> type, World world) {
         super(type, world);
+    }
+
+    @Override
+    public boolean beeAngryest_isNocturnal() {
+        return nocturnal;
     }
 
     @Inject(method = "tryAttack", at = @At("RETURN"))
