@@ -11,6 +11,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -35,16 +36,21 @@ public abstract class BeeEntityMixin extends AnimalEntity implements ExtendedBee
         return nocturnal;
     }
 
-    @Inject(method = "tryAttack", at = @At("RETURN"))
+    @Shadow
+    public abstract boolean hasStung();
+
+    @Inject(method = "tryAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;setHasStung(Z)V"))
     private void onTryAttack(Entity entity, CallbackInfoReturnable<Boolean> info) {
-        if (info.getReturnValueZ() && entity instanceof LivingEntity) {
+        if (entity instanceof LivingEntity && !hasStung() && world.getGameRules().getBoolean(BeeGameRules.BEES_EXPLODE)) {
             world.createExplosion(this, getX(), getY(), getZ(), BEE_EXPLOSION_STRENGTH, Explosion.DestructionType.NONE);
         }
     }
 
     @Inject(method = "mobTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", ordinal = 1))
     private void onMobTick(CallbackInfo info) {
-        world.createExplosion(this, getX(), getY(), getZ(), BEE_EXPLOSION_STRENGTH, Explosion.DestructionType.DESTROY);
+        if (world.getGameRules().getBoolean(BeeGameRules.BEES_EXPLODE)) {
+            world.createExplosion(this, getX(), getY(), getZ(), BEE_EXPLOSION_STRENGTH, Explosion.DestructionType.DESTROY);
+        }
     }
 
     @Redirect(method = "canEnterHive", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isRaining()Z", ordinal = 0))
