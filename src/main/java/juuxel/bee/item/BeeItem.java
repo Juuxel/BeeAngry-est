@@ -13,6 +13,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.stat.Stats;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -39,6 +40,9 @@ public class BeeItem extends Item {
                 beeData.remove("Passengers");
                 beeData.remove("Leash");
                 beeData.removeUuid("UUID");
+                if (!beeData.contains("id")) {
+                    beeData.putString("id", Registry.ENTITY_TYPE.getId(EntityType.BEE).toString());
+                }
                 bee = EntityType.loadEntityWithPassengers(beeData, w, e -> e);
             }
             if (bee == null) {
