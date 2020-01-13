@@ -12,6 +12,7 @@
     "GameRulesMixin"
   ],
   "client": [
+    "client.BuiltinModelItemRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
