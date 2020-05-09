@@ -1,8 +1,6 @@
 package juuxel.bee;
 
 import juuxel.bee.config.Config;
-import juuxel.bee.mixin.BooleanRuleAccessor;
-import juuxel.bee.mixin.GameRulesAccessor;
 import net.minecraft.world.GameRules;
 
 public final class BeeGameRules {
@@ -18,6 +16,6 @@ public final class BeeGameRules {
     }
 
     private static GameRules.RuleKey<GameRules.BooleanRule> register(String name, boolean defaultValue) {
-        return GameRulesAccessor.callRegister(BeeAngryest.ID + ":" + name, BooleanRuleAccessor.callCreate(Config.get().getDefault(name, defaultValue)));
+        return GameRules.register(BeeAngryest.ID + ":" + name, GameRules.RuleCategory.MOBS, GameRules.BooleanRule.create(Config.get().getDefault(name, defaultValue)));
     }
 }

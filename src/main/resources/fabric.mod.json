@@ -24,10 +24,11 @@
   "mixins": [
     "mixins.beeangryest.json"
   ],
+  "accessWidener": "beeangry-est.accesswidener",
 
   "depends": {
-    "fabricloader": ">=0.4.0",
-    "minecraft": ">=1.15-",
+    "fabricloader": ">=0.8.2",
+    "minecraft": ">=1.16-",
     "fabric": "*",
     "beecompatible": "^2.0.0"
   },

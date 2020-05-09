@@ -1,7 +1,5 @@
 package juuxel.bee.criterion;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import juuxel.bee.BeeAngryest;
 import net.minecraft.advancement.criterion.AbstractCriterion;
