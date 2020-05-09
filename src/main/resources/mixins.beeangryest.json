@@ -6,8 +6,8 @@
     "BeeEntityMixin",
     "BeeEntityMixin$PollinateGoalMixin",
     "BooleanRuleAccessor",
-    "CriterionsAccessor",
-    "CriterionsMixin",
+    "CriteriaAccessor",
+    "CriteriaMixin",
     "GameRulesAccessor",
     "GameRulesMixin"
   ],

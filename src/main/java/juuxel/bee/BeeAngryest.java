@@ -49,7 +49,7 @@ public final class BeeAngryest implements ModInitializer {
                 if (!bees.isEmpty()) {
                     ScoopItem.scoopBee(pointer.getWorld(), null, null, bees.get(0), stack);
                 } else {
-                    success = false;
+                    method_27955(false);
                 }
                 return stack;
             }

@@ -8,6 +8,8 @@ import net.minecraft.advancement.criterion.AbstractCriterion;
 import net.minecraft.advancement.criterion.AbstractCriterionConditions;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.predicate.entity.AdvancementEntityPredicateDeserializer;
+import net.minecraft.predicate.entity.AdvancementEntityPredicateSerializer;
 import net.minecraft.predicate.entity.EntityPredicate;
 import net.minecraft.predicate.item.ItemPredicate;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -23,20 +25,20 @@ public class BeeScoopedCriterion extends AbstractCriterion<BeeScoopedCriterion.C
     }
 
     @Override
-    public Conditions conditionsFromJson(JsonObject obj, JsonDeserializationContext context) {
-        return new Conditions(ItemPredicate.fromJson(obj.get("item")), EntityPredicate.fromJson(obj.get("bee")));
+    protected Conditions conditionsFromJson(JsonObject obj, EntityPredicate.Extended playerPredicate, AdvancementEntityPredicateDeserializer predicateDeserializer) {
+        return new Conditions(ItemPredicate.fromJson(obj.get("item")), playerPredicate, EntityPredicate.fromJson(obj.get("bee")));
     }
 
     public void trigger(ServerPlayerEntity player, ItemStack stack, Entity entity) {
-        test(player.getAdvancementTracker(), conditions -> conditions.matches(player, stack, entity));
+        test(player, conditions -> conditions.matches(player, stack, entity));
     }
 
     public static class Conditions extends AbstractCriterionConditions {
         private final ItemPredicate item;
         private final EntityPredicate bee;
 
-        public Conditions(ItemPredicate item, EntityPredicate bee) {
-            super(BeeScoopedCriterion.ID);
+        public Conditions(ItemPredicate item, EntityPredicate.Extended playerPredicate, EntityPredicate bee) {
+            super(BeeScoopedCriterion.ID, playerPredicate);
             this.item = item;
             this.bee = bee;
         }
@@ -45,12 +47,11 @@ public class BeeScoopedCriterion extends AbstractCriterion<BeeScoopedCriterion.C
             return item.test(stack) && bee.test(player, entity);
         }
 
-        // I think this is used for data generation? So technically useless
         @Override
-        public JsonElement toJson() {
-            return Util.make(new JsonObject(), json -> {
+        public JsonObject toJson(AdvancementEntityPredicateSerializer predicateSerializer) {
+            return Util.make(super.toJson(predicateSerializer), json -> {
                 json.add("item", item.toJson());
-                json.add("bee", bee.serialize());
+                json.add("bee", bee.toJson());
             });
         }
     }

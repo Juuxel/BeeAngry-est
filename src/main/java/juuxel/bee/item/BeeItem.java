@@ -39,7 +39,7 @@ public class BeeItem extends Item {
             } else {
                 beeData.remove("Passengers");
                 beeData.remove("Leash");
-                beeData.removeUuid("UUID");
+                beeData.remove("UUID");
                 if (!beeData.contains("id")) {
                     beeData.putString("id", Registry.ENTITY_TYPE.getId(EntityType.BEE).toString());
                 }
@@ -51,7 +51,7 @@ public class BeeItem extends Item {
             if (stack.hasCustomName()) {
                 bee.setCustomName(stack.getName());
             }
-            bee.setPosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+            bee.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
             world.spawnEntity(bee);
         }
         if (user != null) {
