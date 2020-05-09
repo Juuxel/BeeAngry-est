@@ -51,7 +51,7 @@ public class BeeItem extends Item {
             if (stack.hasCustomName()) {
                 bee.setCustomName(stack.getName());
             }
-            bee.setPos(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
+            bee.updatePosition(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5);
             world.spawnEntity(bee);
         }
         if (user != null) {
