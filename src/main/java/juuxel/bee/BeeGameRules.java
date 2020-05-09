@@ -4,8 +4,8 @@ import juuxel.bee.config.Config;
 import net.minecraft.world.GameRules;
 
 public final class BeeGameRules {
-    public static GameRules.RuleKey<GameRules.BooleanRule> SAVE_SCOOPED_BEE_NBT = register("saveScoopedBeeNbt", true);
-    public static GameRules.RuleKey<GameRules.BooleanRule> ALWAYS_DROP_SCOOPED_BEES = register("alwaysDropScoopedBees", true);
+    public static GameRules.RuleKey<GameRules.BooleanRule> SAVE_SCOOPED_BEE_NBT = register("saveScoopedBeeNbt", GameRules.RuleCategory.MISC, true);
+    public static GameRules.RuleKey<GameRules.BooleanRule> ALWAYS_DROP_SCOOPED_BEES = register("alwaysDropScoopedBees", GameRules.RuleCategory.DROPS, true);
     public static GameRules.RuleKey<GameRules.BooleanRule> BEES_SEEK_RAIN_SHELTER = register("beesSeekRainShelter", true);
     public static GameRules.RuleKey<GameRules.BooleanRule> BEES_EXPLODE = register("beesExplode", true);
 
@@ -16,6 +16,10 @@ public final class BeeGameRules {
     }
 
     private static GameRules.RuleKey<GameRules.BooleanRule> register(String name, boolean defaultValue) {
-        return GameRules.register(BeeAngryest.ID + ":" + name, GameRules.RuleCategory.MOBS, GameRules.BooleanRule.create(Config.get().getDefault(name, defaultValue)));
+        return register(name, GameRules.RuleCategory.MOBS, defaultValue);
+    }
+
+    private static GameRules.RuleKey<GameRules.BooleanRule> register(String name, GameRules.RuleCategory category, boolean defaultValue) {
+        return GameRules.register(BeeAngryest.ID + ":" + name, category, GameRules.BooleanRule.create(Config.get().getDefault(name, defaultValue)));
     }
 }
