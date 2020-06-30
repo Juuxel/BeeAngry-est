@@ -4,10 +4,10 @@ import juuxel.bee.config.Config;
 import net.minecraft.world.GameRules;
 
 public final class BeeGameRules {
-    public static GameRules.RuleKey<GameRules.BooleanRule> SAVE_SCOOPED_BEE_NBT = register("saveScoopedBeeNbt", GameRules.RuleCategory.MISC, true);
-    public static GameRules.RuleKey<GameRules.BooleanRule> ALWAYS_DROP_SCOOPED_BEES = register("alwaysDropScoopedBees", GameRules.RuleCategory.DROPS, true);
-    public static GameRules.RuleKey<GameRules.BooleanRule> BEES_SEEK_RAIN_SHELTER = register("beesSeekRainShelter", true);
-    public static GameRules.RuleKey<GameRules.BooleanRule> BEES_EXPLODE = register("beesExplode", true);
+    public static GameRules.Key<GameRules.BooleanRule> SAVE_SCOOPED_BEE_NBT = register("saveScoopedBeeNbt", GameRules.Category.MISC, true);
+    public static GameRules.Key<GameRules.BooleanRule> ALWAYS_DROP_SCOOPED_BEES = register("alwaysDropScoopedBees", GameRules.Category.DROPS, true);
+    public static GameRules.Key<GameRules.BooleanRule> BEES_SEEK_RAIN_SHELTER = register("beesSeekRainShelter", true);
+    public static GameRules.Key<GameRules.BooleanRule> BEES_EXPLODE = register("beesExplode", true);
 
     private BeeGameRules() {}
 
@@ -15,11 +15,11 @@ public final class BeeGameRules {
 
     }
 
-    private static GameRules.RuleKey<GameRules.BooleanRule> register(String name, boolean defaultValue) {
-        return register(name, GameRules.RuleCategory.MOBS, defaultValue);
+    private static GameRules.Key<GameRules.BooleanRule> register(String name, boolean defaultValue) {
+        return register(name, GameRules.Category.MOBS, defaultValue);
     }
 
-    private static GameRules.RuleKey<GameRules.BooleanRule> register(String name, GameRules.RuleCategory category, boolean defaultValue) {
+    private static GameRules.Key<GameRules.BooleanRule> register(String name, GameRules.Category category, boolean defaultValue) {
         return GameRules.register(BeeAngryest.ID + ":" + name, category, GameRules.BooleanRule.create(Config.get().getDefault(name, defaultValue)));
     }
 }

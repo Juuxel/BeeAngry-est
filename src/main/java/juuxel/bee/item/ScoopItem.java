@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.stat.Stats;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.Util;
@@ -23,11 +24,11 @@ public class ScoopItem extends Item {
     }
 
     @Override
-    public boolean useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
+    public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
         World world = user.world;
         if (entity instanceof BeeEntity) {
             scoopBee(world, user, hand, (BeeEntity) entity, stack);
-            return true;
+            return ActionResult.SUCCESS;
         }
         return super.useOnEntity(stack, user, entity, hand);
     }
