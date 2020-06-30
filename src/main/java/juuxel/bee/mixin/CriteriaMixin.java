@@ -5,7 +5,7 @@ import net.minecraft.advancement.criterion.Criteria;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(Criteria.class)
-public class CriteriaMixin {
+abstract class CriteriaMixin {
     static {
         BeeCriteria.init();
     }

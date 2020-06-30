@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BeeEntity.class)
-public abstract class BeeEntityMixin extends AnimalEntity implements ExtendedBee {
+abstract class BeeEntityMixin extends AnimalEntity implements ExtendedBee {
     @Unique
     private static final float BEE_EXPLOSION_STRENGTH = 2.3f;
 
@@ -75,7 +75,6 @@ public abstract class BeeEntityMixin extends AnimalEntity implements ExtendedBee
 
     @Mixin(targets = "net.minecraft.entity.passive.BeeEntity$PollinateGoal")
     static class PollinateGoalMixin {
-        @SuppressWarnings("InvalidMemberReference")
         @Redirect(method = {"canBeeStart()Z", "canBeeContinue()Z"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;isRaining()Z", ordinal = 0))
         private boolean redirectIsRaining(World world) {
             return world.isRaining() && world.getGameRules().getBoolean(BeeGameRules.BEES_SEEK_RAIN_SHELTER);

@@ -5,7 +5,7 @@ import net.minecraft.world.GameRules;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(GameRules.class)
-public class GameRulesMixin {
+abstract class GameRulesMixin {
     static {
         BeeGameRules.init();
     }
