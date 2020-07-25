@@ -63,9 +63,10 @@ abstract class BeeEntityMixin extends AnimalEntity implements ExtendedBee {
         return nocturnal ? world.isDay() : world.isNight();
     }
 
-    @Inject(method = "readCustomDataFromTag", at = @At("RETURN"))
+    @Inject(method = "readCustomDataFromTag", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/nbt/CompoundTag;getInt(Ljava/lang/String;)I", ordinal = 2), cancellable = true)
     private void onReadCustomDataToTag(CompoundTag tag, CallbackInfo info) {
         nocturnal = tag.getBoolean("Nocturnal");
+        if (world.isClient()) info.cancel();
     }
 
     @Inject(method = "writeCustomDataToTag", at = @At("RETURN"))

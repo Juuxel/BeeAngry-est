@@ -70,4 +70,10 @@ public class BeeItem extends Item {
     public String getTranslationKey() {
         return EntityType.BEE.getTranslationKey();
     }
+
+    public static boolean isBaby(ItemStack bee) {
+        // See PassiveEntity.isBaby
+        CompoundTag beeData = bee.getSubTag("Bee");
+        return beeData != null && beeData.getInt("Age") < 0;
+    }
 }

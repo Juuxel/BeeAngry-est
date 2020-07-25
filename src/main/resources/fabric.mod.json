@@ -19,7 +19,8 @@
 
   "environment": "*",
   "entrypoints": {
-    "main": ["juuxel.bee.BeeAngryest"]
+    "main": ["juuxel.bee.BeeAngryest"],
+    "client": ["juuxel.bee.client.BeeAngryestClient"]
   },
   "mixins": [
     "mixins.beeangryest.json"
