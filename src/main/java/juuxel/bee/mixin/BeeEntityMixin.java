@@ -2,12 +2,16 @@ package juuxel.bee.mixin;
 
 import juuxel.bee.BeeGameRules;
 import juuxel.bee.ExtendedBee;
+import juuxel.bee.item.ScoopItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.BeeEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
@@ -71,6 +75,17 @@ abstract class BeeEntityMixin extends AnimalEntity implements ExtendedBee {
     @Inject(method = "writeCustomDataToTag", at = @At("RETURN"))
     private void onWriteCustomDataToTag(CompoundTag tag, CallbackInfo info) {
         tag.putBoolean("Nocturnal", nocturnal);
+    }
+
+    @Override
+    public ActionResult interactMob(PlayerEntity player, Hand hand) {
+        ActionResult result = super.interactMob(player, hand);
+
+        if (result == ActionResult.PASS && player.getStackInHand(hand).isEmpty()) {
+            ScoopItem.scoopBee(world, player, hand, (BeeEntity) (Object) this, null, bee -> player.setStackInHand(hand, bee));
+        }
+
+        return result;
     }
 
     @Mixin(targets = "net.minecraft.entity.passive.BeeEntity$PollinateGoal")
