@@ -24,8 +24,8 @@ abstract class MinecraftClientMixin {
 
     @Inject(method = "method_27022", at = @At("RETURN"), cancellable = true)
     private void onIsEntityGlowing(Entity entity, CallbackInfoReturnable<Boolean> info) {
-        if (!info.getReturnValueZ() && player!=null) {
-            info.setReturnValue(entity instanceof BeeEntity && entity == targetedEntity && (player.getMainHandStack().getItem() instanceof ScoopItem || player.getOffHandStack().getItem() instanceof ScoopItem));
+        if (!info.getReturnValueZ() && player != null) {
+            info.setReturnValue(entity instanceof BeeEntity && entity == targetedEntity && ScoopItem.hasScoop(player));
         }
     }
 }

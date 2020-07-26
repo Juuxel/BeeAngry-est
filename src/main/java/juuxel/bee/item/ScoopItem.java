@@ -37,6 +37,10 @@ public class ScoopItem extends Item {
         return super.useOnEntity(stack, user, entity, hand);
     }
 
+    public static boolean hasScoop(PlayerEntity player) {
+        return player.getMainHandStack().getItem() instanceof ScoopItem || player.getOffHandStack().getItem() instanceof ScoopItem;
+    }
+
     public static void scoopBee(World world, @Nullable PlayerEntity user, @Nullable Hand hand, BeeEntity entity, @Nullable ItemStack scoopStack) {
         scoopBee(world, user, hand, entity, scoopStack, bee -> {
             if (world.getGameRules().getBoolean(BeeGameRules.ALWAYS_DROP_SCOOPED_BEES) || user == null) {

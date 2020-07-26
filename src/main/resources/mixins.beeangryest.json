@@ -1,7 +1,6 @@
 {
   "required": true,
   "package": "juuxel.bee.mixin",
-  "plugin": "juuxel.bee.mixin.plugins.BeeAngryestMixinPlugin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "BeeEntityMixin",

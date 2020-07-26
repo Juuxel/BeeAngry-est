@@ -20,8 +20,6 @@ public final class Config {
 
     private Map<String, Boolean> gameRuleDefaults = new HashMap<>();
 
-    private Map<String, Boolean> compat = new HashMap<>();
-
     public Map<String, Boolean> getGameRuleDefaults() {
         return Collections.unmodifiableMap(gameRuleDefaults);
     }
@@ -30,22 +28,18 @@ public final class Config {
         return gameRuleDefaults.getOrDefault(rule, orElse);
     }
 
-    public boolean getCompatDefault(String rule, boolean orElse) { return compat.getOrDefault(rule, orElse); }
-
     private static Config createDefault() {
         return Util.make(new Config(), it -> {
            it.gameRuleDefaults.put("saveScoopedBeeNbt", true);
            it.gameRuleDefaults.put("alwaysDropScoopedBees", true);
            it.gameRuleDefaults.put("beesSeekRainShelter", true);
            it.gameRuleDefaults.put("beesExplode", true);
-
-           it.compat.put("lambdaControlsCompatEnabled", true);
         });
     }
 
     private static Config load() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Path configPath = FabricLoader.getInstance().getConfigDirectory().toPath().resolve("BeeAngry-est.json");
+        Path configPath = FabricLoader.getInstance().getConfigDir().resolve("BeeAngry-est.json");
 
         if (Files.notExists(configPath)) {
             Config config = createDefault();

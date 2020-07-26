@@ -1,0 +1,55 @@
+package juuxel.bee.client;
+
+import juuxel.bee.item.ScoopItem;
+import me.lambdaurora.lambdacontrols.ControlsMode;
+import me.lambdaurora.lambdacontrols.client.LambdaControlsClient;
+import me.lambdaurora.lambdacontrols.client.compat.CompatHandler;
+import me.lambdaurora.lambdacontrols.client.compat.LambdaControlsCompat;
+import me.lambdaurora.lambdacontrols.client.gui.LambdaControlsRenderer;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.passive.BeeEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.hit.BlockHitResult;
+
+import javax.annotation.Nullable;
+
+enum BeeLambdaControlsCompat implements CompatHandler {
+    INSTANCE;
+
+    private LambdaControlsClient lambdaControls;
+
+    static void init() {
+        BeeAngryestClient.useLabelRenderer = createUseLabelRenderer(BeeAngryestClient.useLabelRenderer);
+
+        LambdaControlsCompat.registerCompatHandler(INSTANCE);
+    }
+
+    private static BeeAngryestClient.UseLabelRenderer createUseLabelRenderer(BeeAngryestClient.UseLabelRenderer fallback) {
+        return (matrices, mc, font, x, y) -> {
+            if (INSTANCE.lambdaControls.config.getControlsMode() == ControlsMode.CONTROLLER) {
+                LambdaControlsRenderer.drawButton(matrices, x - 17, y - 3, 104, mc);
+            } else {
+                fallback.render(matrices, mc, font, x, y);
+            }
+        };
+    }
+
+    @Override
+    public void handle(LambdaControlsClient mod) {
+        lambdaControls = mod;
+    }
+
+    @Override
+    public String getUseActionAt(MinecraftClient client, @Nullable BlockHitResult placeResult) {
+        if (client.targetedEntity instanceof BeeEntity) {
+            PlayerEntity player = client.player;
+
+            if (player == null) return null;
+            if (ScoopItem.hasScoop(player)) {
+                return "gui.beeangry-est.hud.catch";
+            }
+        }
+
+        return null;
+    }
+}
