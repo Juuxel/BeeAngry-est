@@ -23,7 +23,8 @@
     "client": ["juuxel.bee.client.BeeAngryestClient"]
   },
   "mixins": [
-    "mixins.beeangryest.json"
+    "mixins.beeangryest.json",
+    "mixins.lambdacontrols.beeangryest.json"
   ],
   "accessWidener": "beeangry-est.accesswidener",
 
