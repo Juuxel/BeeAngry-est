@@ -12,6 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
 import org.spongepowered.asm.mixin.Mixin;
@@ -70,7 +71,9 @@ abstract class BeeEntityMixin extends AnimalEntity implements ExtendedBee {
     @Inject(method = "readCustomDataFromTag", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/nbt/CompoundTag;getInt(Ljava/lang/String;)I", ordinal = 2), cancellable = true)
     private void onReadCustomDataToTag(CompoundTag tag, CallbackInfo info) {
         nocturnal = tag.getBoolean("Nocturnal");
-        if (world.isClient()) info.cancel();
+
+        // Prevent the game from crashing when client worlds are passed here
+        if (!(world instanceof ServerWorld)) info.cancel();
     }
 
     @Inject(method = "writeCustomDataToTag", at = @At("RETURN"))

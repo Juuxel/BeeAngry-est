@@ -5,12 +5,12 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRenderer;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Lazy;
 import net.minecraft.world.World;
 
 @Environment(EnvType.CLIENT)
@@ -43,6 +43,9 @@ enum BeeItemRenderer implements BuiltinItemRenderer {
         bee.setYaw(0);
         bee.setHeadYaw(0);
 
-        mc.getEntityRenderManager().render(bee, 0, 0, 0, 0, 0.5f, matrices, vertexConsumers, light);
+        EntityRenderDispatcher renderDispatcher = mc.getEntityRenderManager();
+        renderDispatcher.setRenderShadows(false);
+        renderDispatcher.render(bee, 0, 0, 0, 0, 0.5f, matrices, vertexConsumers, light);
+        renderDispatcher.setRenderShadows(true);
     }
 }
