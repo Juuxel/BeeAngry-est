@@ -5,5 +5,7 @@
   "gamerule.beeangry-est:beesExplode": "Exploding bees",
   "gamerule.beeangry-est:beesSeekRainShelter": "Bees seek rain shelter",
   "gamerule.beeangry-est:alwaysDropScoopedBees": "Always drop scooped bees",
-  "gamerule.beeangry-est:saveScoopedBeeNbt": "Save scooped bee NBT data"
+  "gamerule.beeangry-est:saveScoopedBeeNbt": "Save scooped bee NBT data",
+  "gui.beeangry-est.hud.catch": "Catch",
+  "gui.beeangry-est.hud.use": "Use"
 }

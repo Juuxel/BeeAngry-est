@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "juuxel.bee.mixin.compat.lambdacontrols",
+  "plugin": "juuxel.bee.mixin.plugins.LambdaControlsMixinPlugin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+  ],
+  "client": [
+    "BeeAngryestClientMixin",
+    "LambdaControlsRendererInvoker",
+    "LambdaControlsHudMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
