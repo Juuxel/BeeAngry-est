@@ -20,11 +20,6 @@ repositories {
         url = 'http://server.bbkr.space:8081/artifactory/libs-release'
     }
 
-    maven {
-        name = 'CurseForge'
-        url = 'https://minecraft.curseforge.com/api/maven'
-    }
-
     // LambdaControls
     maven {
         name = 'Jitpack'
