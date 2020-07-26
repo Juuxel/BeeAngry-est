@@ -6,7 +6,6 @@
     "BeeEntityMixin",
     "BeeEntityMixin$PollinateGoalMixin",
     "CriteriaMixin",
-    "GameRulesMixin",
     "MobEntityMixin"
   ],
   "client": [

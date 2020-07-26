@@ -35,6 +35,8 @@ public final class BeeAngryest implements ModInitializer {
         Registry.register(Registry.ITEM, id("bee"), BEE);
         Registry.register(Registry.ITEM, id("scoop"), SCOOP);
 
+        BeeGameRules.init();
+
         DispenserBlock.registerBehavior(BEE, (pointer, stack) -> {
             BlockPos pos = pointer.getBlockPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));
             BeeItem.place(pointer.getWorld(), pos, null, stack);
