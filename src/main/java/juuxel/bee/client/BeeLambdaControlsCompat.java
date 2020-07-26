@@ -5,7 +5,10 @@ import me.lambdaurora.lambdacontrols.ControlsMode;
 import me.lambdaurora.lambdacontrols.client.LambdaControlsClient;
 import me.lambdaurora.lambdacontrols.client.compat.CompatHandler;
 import me.lambdaurora.lambdacontrols.client.compat.LambdaControlsCompat;
+import me.lambdaurora.lambdacontrols.client.controller.ButtonBinding;
 import me.lambdaurora.lambdacontrols.client.gui.LambdaControlsRenderer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,6 +16,7 @@ import net.minecraft.util.hit.BlockHitResult;
 
 import javax.annotation.Nullable;
 
+@Environment(EnvType.CLIENT)
 enum BeeLambdaControlsCompat implements CompatHandler {
     INSTANCE;
 
@@ -21,7 +25,7 @@ enum BeeLambdaControlsCompat implements CompatHandler {
     static void init() {
         BeeAngryestClient.useLabelRenderer = (matrices, mc, font, x, y) -> {
             if (INSTANCE.lambdaControls.config.getControlsMode() == ControlsMode.CONTROLLER) {
-                LambdaControlsRenderer.drawButton(matrices, x - 17, y - 3, 104, mc);
+                LambdaControlsRenderer.drawButton(matrices, x - 17, y - 3, ButtonBinding.USE, mc);
             } else {
                 BeeAngryestClient.renderUseLabel(matrices, mc, font, x, y);
             }
