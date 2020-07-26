@@ -47,27 +47,16 @@ dependencies {
     modImplementation "io.github.cottonmc:BeeCompatible:$project.bee_compatible"
     include "io.github.cottonmc:BeeCompatible:$project.bee_compatible"
 
-    compileOnly "com.github.LambdAurora.LambdaControls:core:$project.lambdacontrols"
-    modCompileOnly("com.github.LambdAurora.LambdaControls:fabric:$project.lambdacontrols") {
+    compileOnly(runtimeOnly("com.github.LambdAurora.LambdaControls:core:$project.lambdacontrols"))
+    modCompileOnly(modRuntime("com.github.LambdAurora.LambdaControls:fabric:$project.lambdacontrols") {
         exclude module: 'RoughlyEnoughItems'
         exclude module: 'okzoomer'
         exclude module: 'modmenu'
-    }
+    })
 
-    def lambdaControlsRuntime = true
-
-    if (lambdaControlsRuntime) {
-        runtimeOnly "com.github.LambdAurora.LambdaControls:core:$project.lambdacontrols"
-        modRuntime("com.github.LambdAurora.LambdaControls:fabric:$project.lambdacontrols") {
-            exclude module: 'RoughlyEnoughItems'
-            exclude module: 'okzoomer'
-            exclude module: 'modmenu'
-        }
-
-        // FabricMC/fabric-loom#200
-        runtimeOnly "com.electronwill.night-config:core:3.5.3"
-        runtimeOnly "com.electronwill.night-config:toml:3.5.3"
-    }
+    // For LambdaControls, see FabricMC/fabric-loom#200
+    runtimeOnly "com.electronwill.night-config:core:3.5.3"
+    runtimeOnly "com.electronwill.night-config:toml:3.5.3"
 
     // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
     // You may need to force-disable transitiveness on them.
