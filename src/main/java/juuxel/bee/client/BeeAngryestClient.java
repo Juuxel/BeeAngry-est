@@ -20,15 +20,17 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public final class BeeAngryestClient implements ClientModInitializer {
-    static UseLabelRenderer useLabelRenderer = (matrices, mc, font, x, y) -> {
+    static UseLabelRenderer useLabelRenderer = BeeAngryestClient::renderUseLabel;
+
+    static void renderUseLabel(MatrixStack matrices, MinecraftClient mc, TextRenderer font, int x, int y) {
         Text key = new TranslatableText("gui.beeangry-est.hud.use");
         mc.getTextureManager().bindTexture(new Identifier("textures/gui/checkbox.png"));
-        DrawableHelper.drawTexture(matrices, x-17, y, 15, 0, 15, 15, 48, 48);
+        DrawableHelper.drawTexture(matrices, x - 17, y, 15, 0, 15, 15, 48, 48);
         matrices.push();
         matrices.scale(0.75f, 0.75f, 1);
-        font.drawWithShadow(matrices, key, (x-15)*1.33f, (y+5)*1.33f, 0xFFFFFF);
+        font.drawWithShadow(matrices, key, (x - 15) * 1.33f, (y + 5) * 1.33f, 0xFFFFFF);
         matrices.pop();
-    };
+    }
 
     @Override
     public void onInitializeClient() {

@@ -19,19 +19,15 @@ enum BeeLambdaControlsCompat implements CompatHandler {
     private LambdaControlsClient lambdaControls;
 
     static void init() {
-        BeeAngryestClient.useLabelRenderer = createUseLabelRenderer(BeeAngryestClient.useLabelRenderer);
-
-        LambdaControlsCompat.registerCompatHandler(INSTANCE);
-    }
-
-    private static BeeAngryestClient.UseLabelRenderer createUseLabelRenderer(BeeAngryestClient.UseLabelRenderer fallback) {
-        return (matrices, mc, font, x, y) -> {
+        BeeAngryestClient.useLabelRenderer = (matrices, mc, font, x, y) -> {
             if (INSTANCE.lambdaControls.config.getControlsMode() == ControlsMode.CONTROLLER) {
                 LambdaControlsRenderer.drawButton(matrices, x - 17, y - 3, 104, mc);
             } else {
-                fallback.render(matrices, mc, font, x, y);
+                BeeAngryestClient.renderUseLabel(matrices, mc, font, x, y);
             }
         };
+
+        LambdaControlsCompat.registerCompatHandler(INSTANCE);
     }
 
     @Override
