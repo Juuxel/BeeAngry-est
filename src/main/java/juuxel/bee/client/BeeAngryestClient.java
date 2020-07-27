@@ -38,9 +38,9 @@ public final class BeeAngryestClient implements ClientModInitializer {
 
         HudRenderCallback.EVENT.register((matrices, tickDelta) -> {
             MinecraftClient mc = MinecraftClient.getInstance();
-            if (mc.player == null) return;
             if (mc.targetedEntity instanceof BeeEntity) {
-                boolean hasScoop = mc.player.getMainHandStack().getItem() instanceof ScoopItem || mc.player.getOffHandStack().getItem() instanceof ScoopItem;
+                if (mc.player == null) return;
+                boolean hasScoop = ScoopItem.hasScoop(mc.player);
                 if (hasScoop) {
                     Text message = new TranslatableText("gui.beeangry-est.hud.catch");
                     Text name = mc.targetedEntity.getDisplayName();
@@ -50,8 +50,11 @@ public final class BeeAngryestClient implements ClientModInitializer {
 
                     int x = window.getScaledWidth() / 2 - 2;
                     int y = window.getScaledHeight() / 2 + 16;
-                    font.drawWithShadow(matrices, message, x + 4.5f, y, 0xFFFFFF);
-                    font.drawWithShadow(matrices, name, x + font.getWidth(name)/2, y+8, 0xFFFFFF);
+                    int mw = font.getWidth(message);
+                    int nw = font.getWidth(name);
+                    int offset = mw>nw ? mw/8 : nw/8;
+                    font.drawWithShadow(matrices, message, x + offset, y, 0xFFFFFF);
+                    font.drawWithShadow(matrices, name, x + offset, y+8, 0xFFFFFF);
 
                     useLabelRenderer.render(matrices, mc, font, x, y);
                 }
