@@ -28,6 +28,9 @@ abstract class BeeEntityMixin extends AnimalEntity implements ExtendedBee {
     @Unique
     private boolean nocturnal = false;
 
+    @Unique
+    private boolean shadowDisabled = false;
+
     protected BeeEntityMixin(EntityType<? extends AnimalEntity> type, World world) {
         super(type, world);
     }
@@ -35,6 +38,16 @@ abstract class BeeEntityMixin extends AnimalEntity implements ExtendedBee {
     @Override
     public boolean beeAngryest_isNocturnal() {
         return nocturnal;
+    }
+
+    @Override
+    public boolean beeAngryest_isShadowDisabled() {
+        return shadowDisabled;
+    }
+
+    @Override
+    public void beeAngryest_disableShadows() {
+        shadowDisabled = true;
     }
 
     @Shadow

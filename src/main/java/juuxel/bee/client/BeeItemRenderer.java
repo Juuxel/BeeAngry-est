@@ -1,5 +1,6 @@
 package juuxel.bee.client;
 
+import juuxel.bee.ExtendedBee;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRenderer;
@@ -42,10 +43,9 @@ enum BeeItemRenderer implements BuiltinItemRenderer {
 
         bee.setYaw(0);
         bee.setHeadYaw(0);
+        ((ExtendedBee) bee).beeAngryest_disableShadows();
 
         EntityRenderDispatcher renderDispatcher = mc.getEntityRenderDispatcher();
-        renderDispatcher.setRenderShadows(false);
         renderDispatcher.render(bee, 0, 0, 0, 0, 0.5f, matrices, vertexConsumers, light);
-        renderDispatcher.setRenderShadows(true);
     }
 }
