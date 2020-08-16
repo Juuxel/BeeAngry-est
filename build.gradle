@@ -48,11 +48,12 @@ dependencies {
     include "io.github.cottonmc:BeeCompatible:$project.bee_compatible"
 
     compileOnly(runtimeOnly("com.github.LambdAurora.LambdaControls:core:$project.lambdacontrols"))
-    modCompileOnly(modRuntime("com.github.LambdAurora.LambdaControls:fabric:$project.lambdacontrols") {
+    modCompileOnly("com.github.LambdAurora.LambdaControls:fabric:$project.lambdacontrols") {
+        exclude group: 'net.fabricmc.fabric-api'
         exclude module: 'RoughlyEnoughItems'
         exclude module: 'okzoomer'
         exclude module: 'modmenu'
-    })
+    }
 
     // For LambdaControls, see FabricMC/fabric-loom#200
     runtimeOnly "com.electronwill.night-config:core:3.5.3"

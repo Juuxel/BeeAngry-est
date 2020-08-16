@@ -43,7 +43,7 @@ enum BeeItemRenderer implements BuiltinItemRenderer {
         bee.setYaw(0);
         bee.setHeadYaw(0);
 
-        EntityRenderDispatcher renderDispatcher = mc.getEntityRenderManager();
+        EntityRenderDispatcher renderDispatcher = mc.getEntityRenderDispatcher();
         renderDispatcher.setRenderShadows(false);
         renderDispatcher.render(bee, 0, 0, 0, 0, 0.5f, matrices, vertexConsumers, light);
         renderDispatcher.setRenderShadows(true);

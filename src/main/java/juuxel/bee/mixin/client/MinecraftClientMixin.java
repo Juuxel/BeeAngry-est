@@ -22,8 +22,8 @@ abstract class MinecraftClientMixin {
     @Nullable
     public ClientPlayerEntity player;
 
-    @Inject(method = "method_27022", at = @At("RETURN"), cancellable = true)
-    private void onIsEntityGlowing(Entity entity, CallbackInfoReturnable<Boolean> info) {
+    @Inject(method = "hasOutline", at = @At("RETURN"), cancellable = true)
+    private void onHasOutline(Entity entity, CallbackInfoReturnable<Boolean> info) {
         if (!info.getReturnValueZ() && player != null) {
             info.setReturnValue(entity instanceof BeeEntity && entity == targetedEntity && ScoopItem.hasScoop(player));
         }
