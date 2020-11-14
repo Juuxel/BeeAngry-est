@@ -1,9 +1,9 @@
 package juuxel.bee.criterion;
 
-import net.minecraft.advancement.criterion.Criteria;
+import net.fabricmc.fabric.api.object.builder.v1.advancement.CriterionRegistry;
 
 public final class BeeCriteria {
-    public static final BeeScoopedCriterion BEE_SCOOPED = Criteria.register(new BeeScoopedCriterion());
+    public static final BeeScoopedCriterion BEE_SCOOPED = CriterionRegistry.register(new BeeScoopedCriterion());
 
     public static void init() {
 
