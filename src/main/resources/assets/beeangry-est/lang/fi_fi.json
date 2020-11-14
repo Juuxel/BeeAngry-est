@@ -2,6 +2,8 @@
   "item.beeangry-est.scoop": "Haavi",
   "advancements.beeangry-est.bee_scooped.title": "Haavissa",
   "advancements.beeangry-est.bee_scooped.description": "Nappaa mehiläinen haaviin.",
+  "advancements.beeangry-est.bee_exploded.title": "Mehiläis-PUM!",
+  "advancements.beeangry-est.bee_exploded.description": "Saa mehiläinen räjähtämään.",
   "gamerule.beeangry-est:beesExplode": "Räjähtävät mehiläiset",
   "gamerule.beeangry-est:beesSeekRainShelter": "Mehiläiset suojautuvat sateelta",
   "gamerule.beeangry-est:alwaysDropScoopedBees": "Tiputa napatut mehiläiset aina",

@@ -2,6 +2,7 @@ package juuxel.bee;
 
 import io.github.cottonmc.beecompatible.api.BeeTimeCheckCallback;
 import io.github.cottonmc.beecompatible.api.BeeWeatherCheckCallback;
+import juuxel.bee.criterion.BeeCriteria;
 import juuxel.bee.item.BeeItem;
 import juuxel.bee.item.ScoopItem;
 import net.fabricmc.api.ModInitializer;
@@ -36,6 +37,7 @@ public final class BeeAngryest implements ModInitializer {
         Registry.register(Registry.ITEM, id("scoop"), SCOOP);
 
         BeeGameRules.init();
+        BeeCriteria.init();
 
         DispenserBlock.registerBehavior(BEE, (pointer, stack) -> {
             BlockPos pos = pointer.getBlockPos().offset(pointer.getBlockState().get(DispenserBlock.FACING));

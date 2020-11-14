@@ -2,12 +2,14 @@ package juuxel.bee.mixin;
 
 import juuxel.bee.BeeGameRules;
 import juuxel.bee.ExtendedBee;
+import juuxel.bee.criterion.BeeCriteria;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.explosion.Explosion;
@@ -55,13 +57,19 @@ abstract class BeeEntityMixin extends AnimalEntity implements ExtendedBee {
 
     @Inject(method = "tryAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;setHasStung(Z)V"))
     private void onTryAttack(Entity entity, CallbackInfoReturnable<Boolean> info) {
+        // Explode the bee when it attacks
         if (entity instanceof LivingEntity && !hasStung() && world.getGameRules().getBoolean(BeeGameRules.BEES_EXPLODE)) {
             world.createExplosion(this, getX(), getY(), getZ(), BEE_EXPLOSION_STRENGTH, Explosion.DestructionType.NONE);
+
+            if (entity instanceof ServerPlayerEntity) {
+                BeeCriteria.BEE_EXPLODED.trigger((ServerPlayerEntity) entity, this);
+            }
         }
     }
 
     @Inject(method = "mobTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/BeeEntity;damage(Lnet/minecraft/entity/damage/DamageSource;F)Z", ordinal = 1))
     private void onMobTick(CallbackInfo info) {
+        // Explode the bee when it dies from the lack of a stinger
         if (world.getGameRules().getBoolean(BeeGameRules.BEES_EXPLODE)) {
             world.createExplosion(this, getX(), getY(), getZ(), BEE_EXPLOSION_STRENGTH, Explosion.DestructionType.DESTROY);
         }

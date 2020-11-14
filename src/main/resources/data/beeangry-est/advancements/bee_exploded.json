@@ -1,0 +1,16 @@
+{
+  "parent": "minecraft:husbandry/safely_harvest_honey",
+  "display": {
+    "icon": {
+      "item": "beeangry-est:bee"
+    },
+    "title": { "translate": "advancements.beeangry-est.bee_exploded.title" },
+    "description": { "translate": "advancements.beeangry-est.bee_exploded.description" },
+    "hidden": true
+  },
+  "criteria": {
+    "bee_exploded": {
+      "trigger": "beeangry-est:bee_exploded"
+    }
+  }
+}
