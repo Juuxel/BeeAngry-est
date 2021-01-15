@@ -5,7 +5,7 @@
   "mixins": [
     "BeeEntityMixin",
     "BeeEntityMixin$PollinateGoalMixin",
-    "MobEntityMixin"
+    "BooleanRuleAccessor"
   ],
   "client": [
     "client.EntityRenderDispatcherMixin",

@@ -1,8 +1,7 @@
 package juuxel.bee;
 
 import juuxel.bee.config.Config;
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleFactory;
-import net.fabricmc.fabric.api.gamerule.v1.GameRuleRegistry;
+import juuxel.bee.mixin.BooleanRuleAccessor;
 import net.minecraft.world.GameRules;
 
 public final class BeeGameRules {
@@ -21,6 +20,6 @@ public final class BeeGameRules {
     }
 
     private static GameRules.Key<GameRules.BooleanRule> register(String name, GameRules.Category category, boolean defaultValue) {
-        return GameRuleRegistry.register(BeeAngryest.ID + ":" + name, category, GameRuleFactory.createBooleanRule(Config.get().getDefault(name, defaultValue)));
+        return GameRules.register(BeeAngryest.ID + ":" + name, category, BooleanRuleAccessor.callCreate(Config.get().getDefault(name, defaultValue)));
     }
 }

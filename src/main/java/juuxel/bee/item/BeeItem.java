@@ -2,6 +2,7 @@ package juuxel.bee.item;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,8 +16,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
-
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 public class BeeItem extends Item {
     public BeeItem(Settings settings) {
@@ -75,5 +75,11 @@ public class BeeItem extends Item {
         // See PassiveEntity.isBaby
         CompoundTag beeData = bee.getSubTag("Bee");
         return beeData != null && beeData.getInt("Age") < 0;
+    }
+
+    @Nullable
+    @Override
+    public EquipmentSlot getEquipmentSlot(ItemStack stack) {
+        return isBaby(stack) ? null : EquipmentSlot.HEAD;
     }
 }

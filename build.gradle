@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.4-SNAPSHOT'
+    id 'io.github.juuxel.fabric-loom' version '0.6.2'
     id 'maven-publish'
 }
 
@@ -10,67 +10,27 @@ archivesBaseName = project.archives_base_name
 version = "${project.mod_version}+${project.minecraft_version}"
 group = project.maven_group
 
-repositories {
-    maven {
-        name = 'Cotton'
-        url = 'http://server.bbkr.space:8081/artifactory/libs-release'
-    }
-
-    // LambdaControls
-    maven {
-        name = 'Jitpack'
-        url = 'https://jitpack.io'
-
-        content {
-            includeGroup 'com.github.lambdaurora'
-            includeGroup 'com.github.LambdAurora.LambdaControls'
-        }
-    }
-
-    // A dependency for LambdaControls
-    maven { url = 'https://aperlambda.github.io/maven' }
+loom {
+    mixinConfig = "mixins.beeangryest.json"
 }
 
 dependencies {
     //to change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-
-    // Fabric API. This is technically optional, but you probably want it anyway.
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-    modImplementation "io.github.cottonmc:BeeCompatible:$project.bee_compatible"
-    include "io.github.cottonmc:BeeCompatible:$project.bee_compatible"
-
-    compileOnly(runtimeOnly("com.github.LambdAurora.LambdaControls:core:$project.lambdacontrols"))
-    modCompileOnly("com.github.LambdAurora.LambdaControls:fabric:$project.lambdacontrols") {
-        exclude group: 'net.fabricmc.fabric-api'
-        exclude module: 'RoughlyEnoughItems'
-        exclude module: 'okzoomer'
-        exclude module: 'modmenu'
-    }
-
-    // For LambdaControls, see FabricMC/fabric-loom#200
-    runtimeOnly "com.electronwill.night-config:core:3.5.3"
-    runtimeOnly "com.electronwill.night-config:toml:3.5.3"
-
-    // PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
-    // You may need to force-disable transitiveness on them.
-    compileOnly "com.google.code.findbugs:jsr305:3.0.2"
+    forge "net.minecraftforge:forge:${project.forge_version}"
 }
 
 processResources {
     inputs.property "version", project.version
 
-    from(sourceSets.main.resources.srcDirs) {
-        include "fabric.mod.json"
-        expand "version": project.version
+    filesMatching("META-INF/mods.toml") {
+        expand 'version': project.version
     }
+}
 
-    from(sourceSets.main.resources.srcDirs) {
-        exclude "fabric.mod.json"
-    }
+java {
+    withSourcesJar()
 }
 
 // ensure that the encoding is set to UTF-8, no matter what the system default is
@@ -78,14 +38,10 @@ processResources {
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType(JavaCompile) {
     options.encoding = "UTF-8"
-}
 
-// Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
-// if it is present.
-// If you remove this task, sources will not be generated.
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = "sources"
-    from sourceSets.main.allSource
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.release.set 8
+    }
 }
 
 jar {

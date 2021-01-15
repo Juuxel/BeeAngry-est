@@ -2,9 +2,9 @@ package juuxel.bee.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.util.Lazy;
 import net.minecraft.util.Util;
+import net.minecraftforge.fml.loading.FMLLoader;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -39,7 +39,7 @@ public final class Config {
 
     private static Config load() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Path configPath = FabricLoader.getInstance().getConfigDir().resolve("BeeAngry-est.json");
+        Path configPath = FMLLoader.getGamePath().resolve("config").resolve("BeeAngry-est.json");
 
         if (Files.notExists(configPath)) {
             Config config = createDefault();

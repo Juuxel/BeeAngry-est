@@ -1,0 +1,17 @@
+modLoader = "javafml"
+loaderVersion = "[35,)"
+license = "LGPL v3.0"
+issueTrackerURL = "https://github.com/Juuxel/BeeAngry-est/issues"
+
+[[mods]]
+modId = "beeangry-est"
+version = "${version}"
+displayName = "Bee Angry-est"
+description = "Makes bees angrier!"
+authors = "Juuz"
+logoFile = "icon.png"
+
+[[dependencies.beeangry-est]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.16.4,1.17)"

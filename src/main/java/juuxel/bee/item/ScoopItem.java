@@ -1,6 +1,5 @@
 package juuxel.bee.item;
 
-import juuxel.bee.BeeAngryest;
 import juuxel.bee.BeeGameRules;
 import juuxel.bee.criterion.BeeCriteria;
 import net.minecraft.entity.LivingEntity;
@@ -53,7 +52,7 @@ public class ScoopItem extends Item {
 
     public static void scoopBee(World world, @Nullable PlayerEntity user, @Nullable Hand hand, BeeEntity entity, @Nullable ItemStack scoopStack, Consumer<ItemStack> handler) {
         if (!entity.world.isClient) {
-            ItemStack bee = new ItemStack(BeeAngryest.BEE);
+            ItemStack bee = new ItemStack(BeeItems.BEE.get());
             entity.removeAllPassengers();
             if (world.getGameRules().getBoolean(BeeGameRules.SAVE_SCOOPED_BEE_NBT)) {
                 Util.make(bee.getOrCreateSubTag("Bee"), entity::saveToTag);
